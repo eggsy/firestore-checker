@@ -8,7 +8,6 @@
 - Fetches YouTube metadata such as title, artist and thumbnail.
 - Fetches lyrics and Spotify song URL from KSoft API.
 
-
 ### Why?
 
 I like to share the music I listen and like. I've been doing this ever since I added a feature called "daily" to my old Discord bot. All songs were stored on a MongoDB collection along with bot's other collections and every new day, bot would send a different like according to the date.
@@ -17,7 +16,7 @@ This way I can share my music with my friends, and after I shut my bot down, I s
 
 ### Who needs this?
 
-No one, I just wanted to put it on GitHub to be able to access the code on my other devices.
+Probably no one.
 
 ### Furthermore
 
