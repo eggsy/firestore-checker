@@ -1,3 +1,7 @@
+/**
+ * Get YouTube video ID from passed parameter.
+ * @param url string
+ */
 export default function getVideoId(url: string): string {
   if (url.includes("youtube.com/watch"))
     return new URLSearchParams(new URL(url).search).get("v");

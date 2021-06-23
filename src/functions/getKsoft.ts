@@ -10,6 +10,9 @@ interface Ksoft {
 /* Import types */
 import type { KsoftResponse } from "../types/Response/Ksoft";
 
+/**
+ * Get lyrics and Spotify URL from KSoft API with given title and artist.
+ */
 export default async function getKsoftInfo(
   title: string,
   artist: string

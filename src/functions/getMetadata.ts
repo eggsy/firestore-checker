@@ -8,6 +8,10 @@ import getKsoftInfo from "./getKsoft";
 import type { Metadata } from "../types/Song";
 import type { YoutubeResponse } from "../types/Response/Youtube";
 
+/**
+ * Get video metadata such as title, artist and thumbnail from YouTube.
+ * @param videoId string
+ */
 export default async function getMetadata(videoId: string): Promise<Metadata> {
   const { items } =
     ((
