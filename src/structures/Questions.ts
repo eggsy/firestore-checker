@@ -33,10 +33,10 @@ export default class Questions {
     if (!url) return await this.askAndContinue();
 
     const songId = getVideoId(url);
-    const isSoundAddedBefore = this.songs.find((song) => song.url === songId);
+    const isSongAddedBefore = this.songs.find((song) => song.url === songId);
 
-    if (!!isSoundAddedBefore !== false) {
-      warn(`This song was added before on ${isSoundAddedBefore.date}`);
+    if (!!isSongAddedBefore !== false) {
+      warn(`This song was added before on ${isSongAddedBefore.date}`);
       return await this.askAndContinue();
     }
 
@@ -62,6 +62,13 @@ export default class Questions {
       message: "Enter the date that you want this song to be on",
       initial: oneDayLater,
     });
+
+    const isDateOccupied = this.songs.find((song) => song.date === newSongDate);
+
+    if (!!isDateOccupied === true) {
+      warn("There's already a song selected for this date.");
+      return await this.askAndContinue();
+    }
 
     const { spotifyUrl, ...metadata }: Metadata = await getMetadata(songId);
 
