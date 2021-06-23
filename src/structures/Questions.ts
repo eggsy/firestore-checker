@@ -17,8 +17,8 @@ export default class Questions {
   songs: Song[];
   firebase: Firebase;
 
-  constructor(songs: Song[], firebase: Firebase) {
-    this.songs = songs;
+  constructor(firebase: Firebase) {
+    this.songs = firebase.songs;
     this.firebase = firebase;
   }
 
