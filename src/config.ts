@@ -1,5 +1,9 @@
+import { resolve } from "path";
 import { config } from "dotenv";
-config();
+
+config({
+  path: resolve("../.env"),
+});
 
 export default {
   firebase: {
