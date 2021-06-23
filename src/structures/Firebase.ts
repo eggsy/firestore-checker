@@ -36,7 +36,7 @@ export default class Firebase extends EventEmitter {
         this.emit("loggedIn");
 
         // Set state
-        this.songs = mergeDocs(await this.getSongs(), getLocalSongs())
+        this.songs = mergeDocs(await this.getSongs(), getLocalSongs());
 
         // Emit that songs are fetched
         this.emit("songsFetched");
@@ -79,18 +79,11 @@ export default class Firebase extends EventEmitter {
     if (this.loggedIn === false)
       throw new Error("Still logging in to Firebase.");
 
-    const isDateNotEmpty = !!this.songs.find(
-      (song) => song.date === moment(date, "DD.MM.YYYY")
-    );
-
-    if (isDateNotEmpty !== false)
-      throw new Error("There's already a song for that date.");
+    this.firestore.collection("dailySongs").add(data);
 
     this.songs.push({
       date,
       url: data.url,
     });
-
-    this.firestore.collection("dailySongs").add(data);
   }
 }
