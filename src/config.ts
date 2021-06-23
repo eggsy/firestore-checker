@@ -2,7 +2,10 @@ import { resolve } from "path";
 import { config } from "dotenv";
 
 config({
-  path: resolve("../.env"),
+  path:
+    process.env.NODE_ENV === "development"
+      ? resolve("./.env")
+      : resolve("../.env"),
 });
 
 export default {

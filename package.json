@@ -1,7 +1,7 @@
 {
   "name": "firestore-checker",
   "version": "2.0.0",
-  "description": "The tool I use to check if a song was added to a Firestore collection before.",
+  "description": "The tool I use to add new songs with YouTube information, lyrics, and Spotify URL to my Daily Song page.",
   "main": "dist/index.js",
   "license": "MIT",
   "author": {
@@ -17,8 +17,8 @@
     "url": "https://github.com/eggsy/firestore-checker/issues"
   },
   "scripts": {
-    "dev": "ts-node-dev --respawn src/index.ts",
-    "build": "rimraf dist && yarn --silent && tsc && npm run copy-files",
+    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn src/index.ts",
+    "build": "cross-env NODE_ENV=production rimraf dist && yarn --silent && tsc && npm run copy-files",
     "copy-files": "copyfiles -u 1 src/assets/*.json dist/",
     "start": "cd dist && node index.js"
   },
@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",
+    "cross-env": "^7.0.3",
     "ts-node-dev": "^1.1.6"
   }
 }
