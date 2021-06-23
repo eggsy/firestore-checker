@@ -4,7 +4,7 @@ import moment from "moment";
 import getVideoId from "./getVideoId";
 
 export default function getLocalSongs() {
-  const songs = require("../../assets/songs.json");
+  const songs = require("../assets/songs.json");
 
   return songs.map((song) => {
     return {
