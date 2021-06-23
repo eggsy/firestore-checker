@@ -90,7 +90,7 @@ export default class Questions {
   /**
    * Ask and start the questions again.
    */
-  async askAndContinue() {
+  private async askAndContinue() {
     const { isContinue } = await prompts({
       type: "confirm",
       name: "isContinue",
