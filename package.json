@@ -1,23 +1,41 @@
 {
   "name": "firestore-checker",
-  "version": "1.0.0",
-  "description": "Check if song exists in Firestore.",
+  "version": "2.0.0",
+  "description": "The tool I use to add new songs with YouTube information, lyrics, and Spotify URL to my Daily Song page.",
   "main": "dist/index.js",
+  "license": "MIT",
+  "author": {
+    "email": "eggsydev@gmail.com",
+    "name": "Abdulbaki 'EGGSY' Dursun",
+    "url": "https://eggsy.xyz"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/eggsy/firestore-checker"
+  },
+  "bugs": {
+    "url": "https://github.com/eggsy/firestore-checker/issues"
+  },
   "scripts": {
-    "dev": "devScript",
-    "build": "rimraf dist && yarn --silent && tsc",
+    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn src/index.ts",
+    "build": "cross-env NODE_ENV=production rimraf dist && yarn --silent && tsc && npm run copy-files",
+    "copy-files": "copyfiles -u 1 src/assets/*.json dist/",
     "start": "cd dist && node index.js"
   },
-  "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
-    "consola": "^2.15.0",
-    "dotenv": "^8.2.0",
-    "firebase": "^8.2.1",
+    "consola": "^2.15.3",
+    "dotenv": "^10.0.0",
+    "firebase": "^8.6.8",
     "get-next-date": "^1.0.0",
     "moment": "^2.29.1",
-    "prompts": "^2.4.0",
+    "prompts": "^2.4.1",
     "rimraf": "^3.0.2",
-    "ts-devscript": "^1.1.1"
+    "typescript": "^4.3.4"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "cross-env": "^7.0.3",
+    "ts-node-dev": "^1.1.6"
   }
 }
