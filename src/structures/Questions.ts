@@ -80,7 +80,7 @@ export default class Questions {
     };
 
     if (addToList === true) {
-      this.firebase.addSong(song, newSongDate);
+      this.firebase.addSong(song);
       success(`Successfully added that song to be played on ${oneDayLater}`);
 
       return await this.askAndContinue();

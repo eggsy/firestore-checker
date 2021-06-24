@@ -75,14 +75,14 @@ export default class Firebase extends EventEmitter {
   /**
    * Adds new record to the collection in Firestore.
    */
-  async addSong(data: Song, date: Date) {
+  async addSong(data: Song) {
     if (this.loggedIn === false)
       throw new Error("Still logging in to Firebase.");
 
     this.firestore.collection("dailySongs").add(data);
 
     this.songs.push({
-      date,
+      date: moment(data.date).format("DD.MM.YYYY"),
       url: data.url,
     });
   }
