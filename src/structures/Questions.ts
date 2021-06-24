@@ -1,17 +1,17 @@
 import prompts from "prompts";
 import moment from "moment";
 import nextDay from "get-next-date";
-import { success, warn } from "../functions/logger";
 
 /* Import functions */
 import getVideoId from "../functions/getVideoId";
+import getMetadata from "../functions/getMetadata";
+import { success, warn } from "../functions/logger";
 
 /* Import classes */
 import Firebase from "./firebase";
 
 /* Import types */
 import type { Metadata, Song } from "../types/Song";
-import getMetadata from "../functions/getMetadata";
 
 export default class Questions {
   songs: Song[];
