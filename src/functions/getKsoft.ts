@@ -18,7 +18,7 @@ export default async function getKsoftInfo(
   artist: string
 ): Promise<Ksoft> {
   let searchValue = title;
-  if (artist) searchValue = `${title} ${artist.replace(" - Topic", "")}`;
+  if (artist) searchValue = `${title} ${artist}`;
 
   const apiUri = `https://api.ksoft.si/lyrics/search?q=${encodeURI(
     searchValue
@@ -30,7 +30,7 @@ export default async function getKsoftInfo(
     })
   ).data as KsoftResponse;
 
-  if (!ksoft || ksoft?.length === 0) return { lyrics: [], spotifyUrl: null };
+  if (!ksoft || ksoft.length === 0) return { lyrics: [], spotifyUrl: null };
   else
     return {
       lyrics: ksoft[0]?.lyrics?.split("\n") || [],
