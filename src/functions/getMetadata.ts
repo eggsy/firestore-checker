@@ -26,7 +26,7 @@ export default async function getMetadata(videoId: string): Promise<Metadata> {
   const { title, channelTitle, thumbnails } = items[0]?.snippet;
 
   const metadata: Metadata = {
-    title: title,
+    title,
     artist: channelTitle?.replace(" - Topic", ""),
     thumbnail: thumbnails?.default?.url || "http://via.placeholder.com/75",
     lyrics: [],
