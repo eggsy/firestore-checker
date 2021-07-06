@@ -26,16 +26,16 @@
     "axios": "^0.21.1",
     "consola": "^2.15.3",
     "dotenv": "^10.0.0",
-    "firebase": "^8.6.8",
+    "firebase": "^8.7.0",
     "get-next-date": "^1.0.0",
     "moment": "^2.29.1",
     "prompts": "^2.4.1",
     "rimraf": "^3.0.2",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.5"
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
-    "ts-node-dev": "^1.1.6"
+    "ts-node-dev": "^1.1.8"
   }
 }
