@@ -1,4 +1,4 @@
-import Firebase from "./structures/firebase";
+import Firebase from "./structures/Firebase";
 import Questions from "./structures/Questions";
 
 const firebase = new Firebase();
