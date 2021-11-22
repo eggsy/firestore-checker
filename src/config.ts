@@ -22,6 +22,7 @@ export default {
   },
   key: {
     youtube: process.env.YOUTUBE_API_KEY,
-    ksoft: process.env.KSOFT_API_KEY,
+    spotify: process.env.SPOTIFY_ACCESS_TOKEN,
+    // ksoft: process.env.KSOFT_API_KEY,
   },
 };
