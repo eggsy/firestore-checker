@@ -14,7 +14,8 @@
 
 - Reads YouTube video ID from URL.
 - Fetches YouTube metadata such as title, artist and thumbnail.
-- Fetches lyrics and Spotify song URL from KSoft API.
+- Works with Spotify URLs (converts them to YouTube video IDs for the embed).
+- ~~Fetches lyrics and Spotify song URL from KSoft API.~~ (depreceated)
 
 ### Why?
 
