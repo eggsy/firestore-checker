@@ -12,6 +12,7 @@ import type { KsoftResponse } from "../types/Response/Ksoft";
 
 /**
  * Get lyrics and Spotify URL from KSoft API with given title and artist.
+ * @deprecated KSoft Lyrics API is no longer available
  */
 export default async function getKsoftInfo(
   title: string,
