@@ -1,9 +1,6 @@
 import axios from "axios";
 import config from "../config";
 
-/* Import functions */
-import getKsoftInfo from "./getKsoft";
-
 /* Import types */
 import type { Metadata } from "../types/Song";
 import type { YoutubeResponse } from "../types/Response/Youtube";
@@ -30,12 +27,17 @@ export default async function getMetadata(videoId: string): Promise<Metadata> {
     artist: channelTitle?.replace(" - Topic", ""),
     thumbnail: thumbnails?.default?.url || "http://via.placeholder.com/75",
     lyrics: [],
+    spotifyUrl: "",
   };
+
+  /*
 
   const ksoft = await getKsoftInfo(metadata.title, metadata.artist);
 
   metadata.lyrics = ksoft.lyrics;
   metadata.spotifyUrl = ksoft.spotifyUrl;
+
+  */
 
   return metadata;
 }
