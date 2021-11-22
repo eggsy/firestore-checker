@@ -52,9 +52,19 @@ export default class Questions {
 
     /* Third */
     const lastSong = this.songs.slice(-1)[0];
+    const isTodayLaterThanLastSong =
+      moment(lastSong.date, "DD.MM.YYYY").toDate().getTime() <
+      new Date().getTime();
+
     const oneDayLater = moment(
-      nextDay(moment(lastSong.date, "DD.MM.YYYY").toDate())
-    ).format("DD.MM.YYYY");
+      nextDay(
+        isTodayLaterThanLastSong
+          ? new Date()
+          : moment(lastSong.date, "DD.MM.YYYY").utcOffset(3).toDate()
+      )
+    )
+      .utcOffset(3)
+      .format("DD.MM.YYYY");
 
     const { newSongDate } = await prompts({
       type: "text",
@@ -73,7 +83,7 @@ export default class Questions {
     const { spotifyUrl, ...metadata }: Metadata = await getMetadata(songId);
 
     const song: Song = {
-      date: moment(newSongDate, "DD.MM.YYYY").toDate(),
+      date: moment(newSongDate, "DD.MM.YYYY").utcOffset(3).toDate(),
       url: songId,
       metadata,
       spotifyUrl,
@@ -81,7 +91,7 @@ export default class Questions {
 
     if (addToList === true) {
       this.firebase.addSong(song);
-      success(`Successfully added that song to be played on ${oneDayLater}`);
+      success(`Successfully added that song to be played on ${newSongDate}`);
 
       return await this.askAndContinue();
     }
