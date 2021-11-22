@@ -27,7 +27,7 @@ export default async function getKsoftInfo(
 
   const { data: ksoft } = (
     await axios.get(apiUri, {
-      headers: { Authorization: `Bearer ${config.key.ksoft}` },
+      headers: { Authorization: `Bearer ${null /* config.key.ksoft */}` },
     })
   ).data as KsoftResponse;
 
