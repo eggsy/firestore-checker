@@ -1,6 +1,6 @@
 {
   "name": "firestore-checker",
-  "version": "2.0.0",
+  "version": "2.5.0",
   "description": "The tool I use to add new songs with YouTube information, lyrics, and Spotify URL to my Daily Song page.",
   "main": "dist/index.js",
   "license": "MIT",
