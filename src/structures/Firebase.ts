@@ -1,7 +1,13 @@
-import firebase from "firebase";
-import config from "../config";
 import moment from "moment";
 import EventEmitter from "events";
+
+/* Import firebase */
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+
+/* Import config */
+import config from "../config";
 
 /* Import functions */
 import getLocalSongs from "../functions/getLocalSongs";
@@ -12,8 +18,8 @@ import mergeDocs from "../functions/mergeDocs";
 import type { Song } from "../types/Song";
 
 export default class Firebase extends EventEmitter {
-  app = firebase.initializeApp(config.firebase.config);
-  firestore = this.app.firestore();
+  app = initializeApp(config.firebase.config);
+  collection = collection(getFirestore(this.app), "dailySongs");
 
   /* State */
   private loggedIn = false;
@@ -22,25 +28,23 @@ export default class Firebase extends EventEmitter {
   constructor() {
     super();
 
-    this.app
-      .auth()
-      .signInWithEmailAndPassword(
-        config.firebase.user.email,
-        config.firebase.user.password
-      )
-      .then(async () => {
-        // Set loggedIn state
-        this.loggedIn = true;
+    signInWithEmailAndPassword(
+      getAuth(this.app),
+      config.firebase.user.email,
+      config.firebase.user.password
+    ).then(async () => {
+      // Set loggedIn state
+      this.loggedIn = true;
 
-        // Emit that it's successfully logged in
-        this.emit("loggedIn");
+      // Emit that it's successfully logged in
+      this.emit("loggedIn");
 
-        // Set state
-        this.songs = mergeDocs(await this.getSongs(), getLocalSongs());
+      // Set state
+      this.songs = mergeDocs(await this.getSongs(), getLocalSongs());
 
-        // Emit that songs are fetched
-        this.emit("songsFetched");
-      });
+      // Emit that songs are fetched
+      this.emit("songsFetched");
+    });
   }
 
   /**
@@ -51,7 +55,7 @@ export default class Firebase extends EventEmitter {
     if (this.loggedIn === false)
       throw new Error("Still logging in to Firebase.");
 
-    const query = await this.firestore.collection("dailySongs").get();
+    const query = await getDocs(this.collection);
     const docs = query.docs;
 
     const songs: Song[] = [];
@@ -61,7 +65,7 @@ export default class Firebase extends EventEmitter {
       if (!url || !date) continue;
 
       const fUrl = getVideoId(url) || "[MISSING URL]";
-      const fDate = moment(date.toDate()).format("DD.MM.YYYY");
+      const fDate = moment(date.toDate()).utcOffset(3).format("DD.MM.YYYY");
 
       songs.push({
         url: fUrl,
@@ -79,10 +83,10 @@ export default class Firebase extends EventEmitter {
     if (this.loggedIn === false)
       throw new Error("Still logging in to Firebase.");
 
-    this.firestore.collection("dailySongs").add(data);
+    addDoc(this.collection, data);
 
     this.songs.push({
-      date: moment(data.date).format("DD.MM.YYYY"),
+      date: moment(data.date).utcOffset(3).format("DD.MM.YYYY"),
       url: data.url,
     });
   }
