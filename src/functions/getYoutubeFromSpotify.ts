@@ -17,9 +17,18 @@ export default async function getYoutubeFromSpotify(url: string) {
   if (isActualUrl === false)
     throw new Error("Please insert an actual Spotify URL.");
 
-  const spotifyApi = new SpotifyWebApi();
-  spotifyApi.setAccessToken(config.key.spotify);
+  // Create new Spotify API instance
+  const spotifyApi = new SpotifyWebApi({
+    clientId: config.key.spotify.clientId,
+    clientSecret: config.key.spotify.clientSecret,
+  });
 
+  // Get access token
+  await spotifyApi.clientCredentialsGrant().then(({ body }) => {
+    spotifyApi.setAccessToken(body.access_token);
+  });
+
+  // Create new Spotify To YouTube instance
   const spotifyToYoutube = SpotifyToYoutube(spotifyApi);
   const trackId = new URL(url).pathname.split("/")[2];
 
