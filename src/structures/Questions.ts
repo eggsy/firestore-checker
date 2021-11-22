@@ -32,7 +32,7 @@ export default class Questions {
 
     if (!url) return await this.askAndContinue();
 
-    const songId = getVideoId(url);
+    const songId = await getVideoId(url);
     const isSongAddedBefore = this.songs.find((song) => song.url === songId);
 
     if (!!isSongAddedBefore !== false) {

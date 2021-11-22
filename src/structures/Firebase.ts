@@ -64,7 +64,7 @@ export default class Firebase extends EventEmitter {
       const { url, date } = song.data() as Song;
       if (!url || !date) continue;
 
-      const fUrl = getVideoId(url) || "[MISSING URL]";
+      const fUrl = (await getVideoId(url)) || "[MISSING URL]";
       const fDate = moment(date.toDate()).utcOffset(3).format("DD.MM.YYYY");
 
       songs.push({
