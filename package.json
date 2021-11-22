@@ -23,6 +23,7 @@
     "start": "cd dist && node index.js"
   },
   "dependencies": {
+    "@types/spotify-web-api-node": "^5.0.4",
     "axios": "^0.24.0",
     "consola": "^2.15.3",
     "dotenv": "^10.0.0",
