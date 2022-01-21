@@ -10,6 +10,8 @@ import type { YoutubeResponse } from "../types/Response/Youtube";
  * @param videoId string
  */
 export default async function getMetadata(videoId: string): Promise<Metadata> {
+  if (!videoId) throw new Error("No video ID specified.");
+
   const { items } =
     ((
       await axios.get(
