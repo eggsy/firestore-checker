@@ -30,14 +30,16 @@ export default class Questions {
       message: "Enter the URL or the ID of the YouTube video to check",
     });
 
-    if (!url) return await this.askAndContinue();
+    if (!url) return this.askAndContinue();
 
     const songId = await getVideoId(url);
-    const isSongAddedBefore = this.songs.find((song) => song.url === songId);
+    const isSongAddedBefore = this.songs.find(
+      (musiki) => musiki.url === songId
+    );
 
     if (!!isSongAddedBefore !== false) {
       warn(`This song was added before on ${isSongAddedBefore.date}`);
-      return await this.askAndContinue();
+      return this.askAndContinue();
     }
 
     /* Second */
@@ -48,7 +50,7 @@ export default class Questions {
       initial: true,
     });
 
-    if (addToList === false) return await this.askAndContinue();
+    if (addToList === false) return this.askAndContinue();
 
     /* Third */
     const lastSong = this.songs.slice(-1)[0];
@@ -60,11 +62,9 @@ export default class Questions {
       nextDay(
         isTodayLaterThanLastSong
           ? new Date()
-          : moment(lastSong.date, "DD.MM.YYYY").utcOffset(3).toDate()
+          : moment(lastSong.date, "DD.MM.YYYY").toDate()
       )
-    )
-      .utcOffset(3)
-      .format("DD.MM.YYYY");
+    ).format("DD.MM.YYYY");
 
     const { newSongDate } = await prompts({
       type: "text",
@@ -73,17 +73,19 @@ export default class Questions {
       initial: oneDayLater,
     });
 
-    const isDateOccupied = this.songs.find((song) => song.date === newSongDate);
+    const isDateOccupied = this.songs.find(
+      (musiki) => musiki.date === newSongDate
+    );
 
     if (!!isDateOccupied === true) {
       warn("There's already a song selected for this date.");
-      return await this.askAndContinue();
+      return this.askAndContinue();
     }
 
     const { spotifyUrl, ...metadata }: Metadata = await getMetadata(songId);
 
     const song: Song = {
-      date: moment(newSongDate, "DD.MM.YYYY").utcOffset(3).toDate(),
+      date: moment(newSongDate, "DD.MM.YYYY").toDate(),
       url: songId,
       metadata,
       spotifyUrl,
@@ -93,7 +95,7 @@ export default class Questions {
       this.firebase.addSong(song);
       success(`Successfully added that song to be played on ${newSongDate}`);
 
-      return await this.askAndContinue();
+      return this.askAndContinue();
     }
   }
 
