@@ -86,7 +86,7 @@ export default class Questions {
     const { spotifyUrl, ...metadata }: Metadata = await getMetadata(songId);
 
     const song: Song = {
-      date: moment(newSongDate, "DD.MM.YYYY").toDate(),
+      date: newSongDate,
       url: songId,
       metadata,
       spotifyUrl,
