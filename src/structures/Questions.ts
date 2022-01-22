@@ -5,6 +5,7 @@ import nextDay from "get-next-date";
 /* Import functions */
 import getVideoId from "../functions/getVideoId";
 import getMetadata from "../functions/getMetadata";
+import getTurkeyTime from "../functions/getTurkeyTime";
 import { success, warn } from "../functions/logger";
 
 /* Import classes */
@@ -56,12 +57,12 @@ export default class Questions {
     const lastSong = this.songs.slice(-1)[0];
     const isTodayLaterThanLastSong =
       moment(lastSong.date, "DD.MM.YYYY").toDate().getTime() <
-      new Date().getTime();
+      getTurkeyTime().getTime();
 
     const oneDayLater = moment(
       nextDay(
         isTodayLaterThanLastSong
-          ? new Date()
+          ? getTurkeyTime()
           : moment(lastSong.date, "DD.MM.YYYY").toDate()
       )
     ).format("DD.MM.YYYY");

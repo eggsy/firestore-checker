@@ -83,10 +83,27 @@ export default class Firebase extends EventEmitter {
     if (this.loggedIn === false)
       throw new Error("Still logging in to Firebase.");
 
-    addDoc(this.collection, data);
+    /*
+      This basically turns manipulates given date and sets
+      hours to 9, minutes to 0 because that's when it's midnight
+      in Turkey's timezone (UTC+3 so `9 + 3 = 12`).
+
+      You can change this if you're on a different timezone, or want
+      want to display in different timezone.
+    */
+    const date = moment(data.date as Date);
+    const turkeyTimeInUtc = moment(date, "DD.MM.YYYY")
+      .utc()
+      .set({
+        hour: 9,
+        minutes: 0,
+      })
+      .toDate();
+
+    addDoc(this.collection, { ...data, date: turkeyTimeInUtc });
 
     this.songs.push({
-      date: moment(data.date).utcOffset(3).format("DD.MM.YYYY"),
+      date: date.format("DD.MM.YYYY"),
       url: data.url,
     });
   }
