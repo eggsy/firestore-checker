@@ -91,16 +91,15 @@ export default class Firebase extends EventEmitter {
       You can change this if you're on a different timezone, or want
       want to display in different timezone.
     */
-    const date = moment(data.date as Date);
-    const turkeyTimeInUtc = moment(date, "DD.MM.YYYY")
-      .utc()
-      .set({
-        hour: 9,
-        minutes: 0,
-      })
-      .toDate();
+    let date = moment(data.date as string, "DD.MM.YYYY");
 
-    addDoc(this.collection, { ...data, date: turkeyTimeInUtc });
+    if (date.utcOffset() / 60 !== 3)
+      date = date.utc().set({
+        hour: 21,
+        minutes: 0,
+      });
+
+    addDoc(this.collection, { ...data, date: date.toDate() });
 
     this.songs.push({
       date: date.format("DD.MM.YYYY"),
